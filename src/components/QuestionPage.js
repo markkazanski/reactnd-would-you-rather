@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddAnswer } from '../actions/questions';
+import './QuestionPage.css';
 
 
 class QuestionPage extends React.Component{
     render(){
         const { id, questions, authedUser, users, dispatch } = this.props;
+        console.log('another id', id)
         const answered = questions[id].optionOne.votes.includes(authedUser) ||
             questions[id].optionTwo.votes.includes(authedUser);
 
@@ -13,7 +15,7 @@ class QuestionPage extends React.Component{
             <div>
                 {
                     answered
-                    ? <AnsweredQuestion question={questions[id]} />
+                    ? <AnsweredQuestion question={questions[id]} authedUser={authedUser} />
                     : <NewQuestion 
                         question={questions[id]} 
                         user={users[questions[id].author]}
@@ -28,24 +30,35 @@ class QuestionPage extends React.Component{
 
 class AnsweredQuestion extends React.Component{
     render(){
-        const { question } = this.props;
+        const { question, authedUser } = this.props;
         const votes1 = question.optionOne.votes.length;
         const votes2 = question.optionTwo.votes.length;
         const percent1 = (votes1 / (votes1 + votes2)) * 100;
         const percent2 = (votes2 / (votes1 + votes2)) * 100;
+
+        const userAnswerOne = question.optionOne.votes.includes(authedUser)
+            ? true
+            : false;
+
         return(
-            <div>
+            <div className='question old'>
                 <h3>Poll Results</h3>
                  <div>
                     <h4>Option1: {question.optionOne.text}</h4>
                     <p>Votes: {votes1} out of {votes1 + votes2}</p>
                     <p>Percent: {percent1}</p>
+                    {
+                        userAnswerOne ? <p><strong>✔ Your Answer</strong></p> : null
+                    }
                 </div> 
 
                  <div>
                     <h4>Option2: {question.optionTwo.text}</h4>
                     <p>Votes: {votes2} out of {votes1 + votes2}</p>
                     <p>Percent: {percent2}</p>
+                    {
+                        !userAnswerOne ? <p><strong>✔ Your Answer</strong></p> : null
+                    }
                 </div>
 
             </div>
@@ -64,25 +77,28 @@ class NewQuestion extends React.Component{
     render(){
         const { question, user, authedUser } = this.props;
         return(
-            <div>
+            <div className='question new'>
                 <h2>Would You Rather?</h2>
                 <button value='optionOne' onClick={(e) => this.handleAnswer(e, question.id, authedUser)}>{question.optionOne.text}</button> 
                  OR  
                 <button value='optionTwo' onClick={(e) => this.handleAnswer(e, question.id, authedUser)}>{question.optionTwo.text}</button>
                 <div>
-                    By: {question.author}
-                    <img src={user.avatarURL} />
+                    <p>By: {question.author}</p>
+                    <p><img className='avatar' src={'/' + user.avatarURL} /></p>
                 </div>
             </div>
         );
     }
 }
 
-function mapStateToProps({ users, questions, authedUser }){
+function mapStateToProps({ users, questions, authedUser }, props){
+    const { qid } = props.match.params;
+    
     return {
         users,
         questions,
-        authedUser
+        authedUser,
+        id: qid
     }
   }
 

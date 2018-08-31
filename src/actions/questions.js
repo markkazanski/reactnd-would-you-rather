@@ -47,13 +47,17 @@ export function handleAddAnswer(answer, qid){
     }   
 }
 
-export function handleAddQuestion(text){
+export function handleAddQuestion(question){
     return (dispatch, getState) => {
         const { authedUser } = getState();
+        const { optionOneText, optionTwoText, author } = question;
+
+        console.log("handleAddQuestion text", question)
 
         return saveQuestion({
-            text,
-            author: authedUser,
+            optionOneText,
+            optionTwoText,
+            author
         })
         .then(question => {
             dispatch(addQuestion(question));

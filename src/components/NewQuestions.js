@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import Question from './Question';
 
 class NewQuestions extends React.Component{
     render(){
@@ -16,7 +16,7 @@ class NewQuestions extends React.Component{
                     .sort((a,b) => 
                         questions[b].timestamp - questions[a].timestamp
                     )
-                    .map(qId => <p>{questions[qId].id + " " + questions[qId].author}</p>)
+                    .map(qId => <Question key={qId} question={questions[qId]} />)
                 }
             </div>
         );

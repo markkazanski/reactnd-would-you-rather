@@ -15,3 +15,21 @@ export function handleInitialData(){
             });
     }
 }
+
+export function updateLeaderBoard(){
+    return dispatch => {
+        return getInitialData()
+            .then(({users}) => {
+                dispatch(receiveUsers(users));
+            });
+    }
+}
+
+export function logOut(){
+    return dispatch => {
+        return getInitialData()
+            .then(({users}) => {
+                dispatch(setAuthedUser(null));
+            });
+    }
+}

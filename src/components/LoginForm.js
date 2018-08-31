@@ -39,7 +39,7 @@ class LoginForm extends React.Component{
     }
 
     render(){
-        const { users } = this.props;
+        const { users, loading } = this.props;
         return (
             <form onSubmit={this.handleSubmit}>
                 <select onChange={this.handleChange}>
@@ -56,7 +56,8 @@ class LoginForm extends React.Component{
 
 function mapStateToProps({ users }){
     return {
-      users
+      users,
+      loading: users === null
     }
   }
 

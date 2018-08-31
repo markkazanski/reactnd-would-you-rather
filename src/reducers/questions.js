@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, ADD_ANSWER } from '../actions/questions';
+import { RECEIVE_QUESTIONS, ADD_ANSWER, ADD_QUESTION } from '../actions/questions';
 
 export default function tweets(state = {}, action){
     switch(action.type){
@@ -14,6 +14,13 @@ export default function tweets(state = {}, action){
             return {
                 ...state,
                 [qid]: questionObj
+            };
+        case ADD_QUESTION:
+            console.log('ADD_QUESTION action',action);
+
+            return {
+                ...state,
+                [action.question.id]: action.question
             };
         default: 
             return state;
