@@ -4,13 +4,18 @@ import { handleAddAnswer } from '../actions/questions';
 import './QuestionPage.css';
 
 
-class QuestionPage extends React.Component{
-    render(){
-        const { id, questions, authedUser, users, dispatch } = this.props;
-        console.log('another id', id)
-        const answered = questions[id].optionOne.votes.includes(authedUser) ||
+const QuestionPage = props => {
+    console.log("QuestionPage props", props)
+    const { id, questions, authedUser, users, dispatch } = props;
+    console.log('another id', id);
+    let answered = false;
+    if(questions[id]){
+        answered = questions[id].optionOne.votes.includes(authedUser) ||
             questions[id].optionTwo.votes.includes(authedUser);
-
+    } else {
+        props.history.push('/404');
+    }
+    if(questions[id]){
         return(
             <div>
                 {
@@ -25,12 +30,13 @@ class QuestionPage extends React.Component{
                 }
             </div>
         );
+    } else {
+        return <div></div>
     }
 }
 
-class AnsweredQuestion extends React.Component{
-    render(){
-        const { question, authedUser } = this.props;
+const AnsweredQuestion = props => {
+        const { question, authedUser } = props;
         const votes1 = question.optionOne.votes.length;
         const votes2 = question.optionTwo.votes.length;
         const percent1 = (votes1 / (votes1 + votes2)) * 100;
@@ -63,7 +69,6 @@ class AnsweredQuestion extends React.Component{
 
             </div>
         );
-    }
 }
 
 class NewQuestion extends React.Component{
@@ -84,7 +89,7 @@ class NewQuestion extends React.Component{
                 <button value='optionTwo' onClick={(e) => this.handleAnswer(e, question.id, authedUser)}>{question.optionTwo.text}</button>
                 <div>
                     <p>By: {question.author}</p>
-                    <p><img className='avatar' src={'/' + user.avatarURL} /></p>
+                    <p><img className='avatar' alt={question.author + ' avatar'} src={'/' + user.avatarURL} /></p>
                 </div>
             </div>
         );

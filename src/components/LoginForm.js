@@ -15,7 +15,7 @@ class LoginForm extends React.Component{
 
     handleChange(e){
         const userId = e.target.value;
-        
+  
         this.setState(() => ({
             authedUser: userId
         }));
@@ -27,8 +27,9 @@ class LoginForm extends React.Component{
 
         const { authedUser } = this.state;
         const { dispatch } = this.props;
-
-        dispatch(setAuthedUser(authedUser));
+        
+        if(authedUser)
+            dispatch(setAuthedUser(authedUser));
 
         /*
         this.setState(() => ({
@@ -42,13 +43,18 @@ class LoginForm extends React.Component{
         const { users, loading } = this.props;
         return (
             <form onSubmit={this.handleSubmit}>
+                { !loading 
+                    ? (
                 <select onChange={this.handleChange}>
                     <option>Choose your user</option>
                     {Object.keys(users).map(user => 
                         <option value={users[user].id} key={users[user].id}>{users[user].name}</option>
                     )}
                 </select>
-                <button type='submit'>Log In</button>
+                    )
+                    : null
+                }
+                <button type='submit' disabled={this.state.authedUser ? false : true}>Log In</button>
             </form>
         );
     }

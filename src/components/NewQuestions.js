@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Question from './Question';
 
-class NewQuestions extends React.Component{
-    render(){
-        const { questions, authedUser } = this.props;
+const NewQuestions = props => {
+        const { questions, authedUser } = props;
         return (
             <div>
                 <h2>New Questions</h2>
@@ -20,7 +19,6 @@ class NewQuestions extends React.Component{
                 }
             </div>
         );
-    }
 }
 
 function mapStateToProps({ users, questions, authedUser }){

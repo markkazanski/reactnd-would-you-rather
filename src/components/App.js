@@ -7,7 +7,6 @@ import LoginForm from './LoginForm';
 import NewQuestions from './NewQuestions';
 import AnsweredQuestions from './AnsweredQuestions';
 import QuestionPage from './QuestionPage';
-import Question from './Question';
 import NewForm from './NewForm';
 import Leaderboard from './Leaderboard';
 import Nav from './Nav';
@@ -34,7 +33,7 @@ class App extends Component {
                     <Route path='/' exact component={NewQuestions} />
                     <Route path='/answered' component={AnsweredQuestions} />
                     <Route path='/questions/:qid' component={QuestionPage} />
-                    <Route path='/new' component={NewForm} />
+                    <Route path='/add' component={NewForm} />
                     <Route path='/leaderboard' component={Leaderboard} />
                     <Route path='/logout' component={LogOut} />
                   

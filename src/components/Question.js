@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class Question extends React.Component{
-    render(){
-        console.log("queston", this.props.question);
-        const { question } = this.props;
+const Question = props => {
+        console.log("queston", props.question);
+        const { question } = props;
 
         return(
             <Link to={`/questions/${question.id}`}>
@@ -13,8 +12,6 @@ class Question extends React.Component{
                 <hr />
             </Link>
         );
-    }
-
 }
 
 export default Question;

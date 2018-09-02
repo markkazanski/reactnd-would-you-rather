@@ -19,7 +19,7 @@ class Leaderboard extends React.Component{
                 {userArray.map((user, i) => (
                     <div key={user.uid}>
                         <h4>{i+1}. {users[user.uid].name}</h4>
-                        <p><img src={`/` + users[user.uid].avatarURL} /></p>
+                        <p><img alt={users[user.uid].name + ' Avatar'} src={`/` + users[user.uid].avatarURL} /></p>
                         <p>
                             <span>Votes: {user.votes}</span>
                             <br />
