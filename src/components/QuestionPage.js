@@ -10,8 +10,8 @@ const QuestionPage = props => {
     console.log('another id', id);
     let answered = false;
     if(questions[id]){
-        answered = questions[id].optionOne.votes.includes(authedUser) ||
-            questions[id].optionTwo.votes.includes(authedUser);
+        answered = (questions[id].optionOne.votes.indexOf(authedUser) > -1) ||
+            (questions[id].optionTwo.votes.indexOf(authedUser) > -1);
     } else {
         props.history.push('/404');
     }
@@ -42,7 +42,7 @@ const AnsweredQuestion = props => {
         const percent1 = (votes1 / (votes1 + votes2)) * 100;
         const percent2 = (votes2 / (votes1 + votes2)) * 100;
 
-        const userAnswerOne = question.optionOne.votes.includes(authedUser)
+        const userAnswerOne = (question.optionOne.votes.indexOf(authedUser) > -1)
             ? true
             : false;
 

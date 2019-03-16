@@ -9,8 +9,8 @@ const NewQuestions = props => {
                 <h2>New Questions</h2>
                 {
                     Object.keys(questions).filter(qId => 
-                        !questions[qId].optionOne.votes.includes(authedUser) &&
-                        !questions[qId].optionTwo.votes.includes(authedUser)
+                        !(questions[qId].optionOne.votes.indexOf(authedUser) > -1) &&
+                        !(questions[qId].optionTwo.votes.indexOf(authedUser) > -1)
                     )
                     .sort((a,b) => 
                         questions[b].timestamp - questions[a].timestamp

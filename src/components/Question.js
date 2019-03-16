@@ -6,7 +6,7 @@ const Question = props => {
         const { question } = props;
 
         return(
-            <Link to={`/questions/${question.id}`}>
+            <Link className='question-link' to={`/questions/${question.id}`}>
                 <h3>{question.optionOne.text} <em>or</em> {question.optionTwo.text}</h3>
                 <small>{new Date(question.timestamp).toDateString()}</small>
                 <hr />
